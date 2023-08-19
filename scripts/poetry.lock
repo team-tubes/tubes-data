@@ -132,6 +132,16 @@ s3 = ["boto3 (>=1.3.1)"]
 test = ["Fiona[s3]", "pytest (>=7)", "pytest-cov", "pytz"]
 
 [[package]]
+name = "flock"
+version = "0.1"
+description = "Flock object uses fcntl.flock to lock (resp. unlock) file descriptor (fd) with operation (op) when entering (resp. leaving) runtime context related to it."
+optional = false
+python-versions = "*"
+files = [
+    {file = "flock-0.1.tar.gz", hash = "sha256:d22394893809ac2e2189b793e391d165d84c520c54f5360236d79616d68beaf5"},
+]
+
+[[package]]
 name = "geopandas"
 version = "0.13.2"
 description = "Geographic pandas extensions"
@@ -401,4 +411,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d4d5da285f275dbb94f9889683b50f99f10d0410a8ebb048c141dd72195705e9"
+content-hash = "6caa00cce9776a4da8a6b4266f450f9fb7ac9408ca4aba78af8118c0a8dca695"
