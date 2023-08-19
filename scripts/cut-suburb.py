@@ -20,7 +20,7 @@ home_dir = os.path.expanduser("~")
 downloads_folder = os.path.join(home_dir, 'Downloads')
 
 # Construct the path to the input GeoJSON file in the Downloads folder
-pipes_file = os.path.join(downloads_folder, 'Water_Pipe_top15.geojson')
+pipes_file = os.path.join(downloads_folder, 'Water_Pipe.geojson')
 suburbs_file = os.path.join(downloads_folder, 'suburb-list.geojson')
 matched_names = os.path.join(downloads_folder, 'suburb-list.txt')
 

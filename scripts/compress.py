@@ -3,12 +3,12 @@ import geopandas as gpd
 from shapely.geometry import Point
 import math
 import re
+from geopy.distance import geodesic
 
 # Set the center coordinates and radius in decimal degrees
 # -36.865164138579374, 174.75606736112917
-center_latitude = -36.8651
-center_longitude = 174.7560
-radius_km = 20.0
+centre_coords = (-36.8651, 174.7560)
+radius_km = 15.0
 
 # Get the path to the user's home directory
 home_dir = os.path.expanduser("~")
@@ -20,15 +20,21 @@ downloads_folder = os.path.join(home_dir, 'Downloads')
 input_geojson_file = os.path.join(downloads_folder, 'suburbs.geojson')
 gdf = gpd.read_file(input_geojson_file)
 
-# Create a point geometry for the center coordinates
-center_point = Point(center_longitude, center_latitude)
 
-# Convert the radius from kilometers to degrees
-radius_deg = radius_km / 111.32
+# Create a function to calculate distance between two points
+def calculate_distance(row):
+    suburb_coords = (row['geometry'].centroid.y, row['geometry'].centroid.x)
+    return geodesic(suburb_coords, centre_coords).kilometers
 
-# Filter the data within the specified radius
-filtered_gdf = gdf[gdf.geometry.distance(center_point) <= radius_deg]
 
+# Filter the suburbs within Xkm of the centre
+filtered_suburbs = []
+
+# Calculate the distance between each suburb and the centre
+gdf['distance_to_centre'] = gdf.apply(calculate_distance, axis=1)
+
+# Filter the suburbs within Xkm of the centre
+filtered_gdf = gdf[gdf['distance_to_centre'] <= radius_km]
 
 suburb_names = list(filtered_gdf['name'])
 cleaned_names = []
